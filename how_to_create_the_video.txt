@@ -1,0 +1,1 @@
+ffmpeg -framerate 6 -i frames/%04d.png -vf "scale=2*iw:2*ih" -vcodec libx264 -crf 23 -pix_fmt yuv420p <filename>.mp4 
