@@ -1,0 +1,716 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath, amssymb, physics, geometry}
+\usepackage{bm}
+
+\geometry{margin=1in}
+
+\title{Derivation of the Wigner surmise}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We derive the standard Wigner surmise for the Gaussian Orthogonal 
+Ensemble (GOE, Dyson index $\beta=1$). The steps are explicit so every 
+constant can be checked. At the end we also state the result for 
+$\beta=2$ (GUE). 
+\end{abstract}
+
+% Write one or two parragraphs maximum to motivate why to study the level spacing distribution of quantum chaotic systems and compare it with the RMT predictions, from the BGS conjecture
+\section{Why to study the level spacing distribution? BGS conjecture}
+The study of level spacing distributions in quantum chaotic systems is pivotal for 
+understanding the underlying quantum dynamics and their classical counterparts. 
+Level spacing distribution provides crucial insights into the energy spectrum 
+statistics of a quantum system, which can reveal whether the system exhibits 
+chaotic behavior. According to the Bohigas-Giannoni-Schmit (BGS) conjecture, 
+quantum systems whose classical analogs are chaotic display spectral statistics 
+that align with predictions from random matrix theory (RMT). This conjecture 
+serves as a bridge between quantum chaos and RMT, suggesting that the energy 
+levels of quantum chaotic systems are correlated in a manner similar to the 
+eigenvalues of random matrices.
+
+Comparing the level spacing distribution of a quantum chaotic system with RMT 
+predictions not only tests the validity of the BGS conjecture but also enhances 
+our comprehension of quantum chaos as a whole. Such comparisons can help 
+distinguish between truly chaotic systems and those that might merely exhibit 
+random or pseudo-random behavior. Furthermore, exploring deviations from RMT 
+predictions can signal the presence of novel physical phenomena or symmetries 
+not accounted for in classical descriptions, thereby enriching our understanding 
+of quantum systems in diverse physical contexts.
+
+
+\section{The appropriate probability measure for Time-Reversal Symmetric Systems. Gaussian Orthogonal Ensemble (GOE)}
+In quantum physics, a time-reversal symmetric quantum chaotic system is often modeled 
+using the Gaussian Orthogonal Ensemble (GOE) of random matrices. This is because the 
+GOE captures the essential statistical properties of the spectrum of such systems. 
+Time-reversal symmetry implies that the Hamiltonian, which governs the system's 
+dynamics, is invariant under time reversal. In mathematical terms, this means the 
+Hamiltonian is represented by a real symmetric matrix. The GOE consists of real 
+symmetric matrices with elements that are random variables following a Gaussian 
+distribution. This ensemble is invariant under orthogonal transformations, which 
+means any such transformation applied to a GOE matrix results in another matrix 
+belonging to the GOE. This invariance reflects the lack of any preferential 
+direction or orientation in the system, which is a hallmark of chaotic behavior. 
+Thus, the GOE provides a natural and effective framework for modeling the statistical 
+properties of time-reversal symmetric quantum chaotic systems.
+
+\subsection{Why orthogonal?}
+To demonstrate that time-reversal symmetry implies the Hamiltonian is represented by 
+a real symmetric matrix, we begin by considering the properties of time-reversal 
+symmetry in quantum mechanics. In general, the time-reversal operator $\mathcal{T}$ 
+is an anti-unitary operator, which can be expressed as $\mathcal{T} = UK$, where $U$ 
+is a unitary operator and $K$ denotes complex conjugation.
+
+For a quantum system to be time-reversal symmetric, the Hamiltonian $H$ must satisfy 
+the condition $\mathcal{T}H\mathcal{T}^{-1} = H$. If we apply $\mathcal{T} = UK$ to 
+the Hamiltonian, we have:
+
+\[
+\mathcal{T}H\mathcal{T}^{-1} = UKH(UK)^{-1} = UKH(KU^{-1}).
+\]
+
+Since $K$ denotes complex conjugation, for any operator $A$, we have $KAK = A^*$. 
+Thus, the above expression becomes:
+
+\[
+UKH(KU^{-1}) = U(H^*)U^{-1}.
+\]
+
+The condition for time-reversal symmetry then reads:
+
+\[
+U(H^*)U^{-1} = H.
+\]
+
+This implies that $H^*$ and $H$ are related via a similarity transformation involving 
+a unitary operator $U$. To satisfy this condition for all possible $U$, $H$ must be 
+such that the transformation results in the same operator, i.e., $H^* = H$. Therefore, 
+the Hamiltonian must be real (since $H^* = H$ implies $H$ is real) and symmetric 
+($H = H^\dagger$ and for real matrices, $H = H^T$).
+
+Consequently, a time-reversal symmetric Hamiltonian in quantum mechanics is 
+represented by a real symmetric matrix. This is consistent with the properties of 
+the Gaussian Orthogonal Ensemble (GOE), which consists of real symmetric matrices 
+following a Gaussian distribution. The GOE captures the statistical properties of 
+time-reversal symmetric quantum chaotic systems by reflecting the invariance under 
+orthogonal transformations and the absence of a preferential direction or orientation 
+in the system.
+
+\subsection{Why gaussian?}
+% Re-write the following for clarity
+%A random matrix $H$ from the GOE is one such that 
+%\begin{equation}
+%H_{ij} \sim 
+%  \begin{cases}
+%  \mathcal{N}(0, 1) & i = j \\
+%  \mathcal{N}(0, 1/2) & i\ne j
+%  \end{cases}
+%\end{equation}
+%where $\mathcal{N}(\mu, \sigma^2)$ denotes a Gaussian distribution with mean 
+%$\mu$ and variance $\sigma^2$; this is where the ``Gaussian'' in GOE comes 
+%from. Let us show from the only assumption that the ensemble of matrices from
+%which we are sampling is invariant under orthogonal transformations. In other
+%words, if we sample a matrix from this ensemble and then apply an orthogonal 
+%transformation we get another matrix from the same ensemble.
+A random matrix $H$ from the Gaussian Orthogonal Ensemble (GOE) is defined such that:
+\begin{equation}\label{eq:GOE}
+H_{ij} \sim 
+  \begin{cases}
+  \mathcal{N}(0, 1), & \text{if } i = j, \\
+  \mathcal{N}(0, 1/2), & \text{if } i \ne j,
+  \end{cases}
+\end{equation}
+where $\mathcal{N}(\mu, \sigma^2)$ represents a Gaussian distribution with mean 
+$\mu$ and variance $\sigma^2$. The term "Gaussian" in GOE comes from this 
+distribution characteristic. Let us show in  this section how to
+arrive at Eq.~\eqref{eq:GOE} from first principles. We will only assume 
+that we are drawing matrices from an ensemble that is invariant under 
+orthogonal transformations. In other words, if we select a matrix 
+from this ensemble and subsequently apply an orthogonal transformation, 
+the result is another matrix that also belongs to the same ensemble.
+
+For a set of matrices to be a truly statistical ensemble we need to endow 
+it with a probability measure. We are looking for such a probability measure
+$P(H)$ that is invariant under orthogonal transformations $O$:
+%\begin{equation}
+%O H O^T = H,\quad O O^T = I.
+%\end{equation}
+%Thus, we also need our probability measure to be invariant under orthogonal 
+%transformations:
+\begin{equation}
+P(O H O^T) = P(H).
+\end{equation}
+Let us consider $2\times 2$ matrices. An arbitrary real and symmetric matrix 
+$H$ writes 
+\begin{equation}\label{eq:2by2_matrix}
+H = 
+\mqty(
+H_{11} & H_{12} \\
+H_{12} & H_{22}
+).
+\end{equation}
+In this case, the probability measure is the product of the probabilities for
+each matrix element:
+\begin{equation}
+P(H) = p_{11}(H_{11})p_{12}(H_{12})p_{22}(H_{22}).
+\end{equation}
+Then, an orthogonal transformation writes
+\begin{equation*}
+O = 
+\mqty(
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+).
+\end{equation*}
+Since orthogonal transformations form a group, which is denoted $O(d)$,
+the composition of two orthogonal transformations is another orthogonal 
+transformation. Therefore, it suffices to consider only infinitesimal 
+orthogonal transformations, as every other transformation can be composed 
+as infinitely many infinitesimal orthogonal transformations. Thus,
+\begin{equation}
+\lim_{\theta \to 0} O  = 
+\mqty(
+1 & -\theta \\
+\theta & 1
+).
+\end{equation}
+If we denote $H' = \lim_{\theta \to 0} O H O^T$ one obtains:
+\begin{align}
+H'_{11} =& H_{11} - 2\theta H_{12} \\
+H'_{12} =& H_{12} + \theta H_{12}\qty(H_{11} - H_{22}) \\
+H'_{22} =& H_{22} + 2\theta H_{22}.
+\end{align}
+
+Now let us investigate how $P(H)$ changes under an infinitesimal transformation.
+We make a Taylor expansion of $P(H)$ and keep terms up to the linear order in 
+$\theta$:
+\begin{align}
+P(H) 
+\approx\,& 
+P(H) 
++ \pdv{P(H)}{H_{11}}\Delta H_{11}
++ \pdv{P(H)}{H_{12}}\Delta H_{12}
++ \pdv{P(H)}{H_{22}}\Delta H_{22} \\
+=\,& 
+P(H) 
++ \dv{p_{11}(H_{11})}{H_{11}}p_{12}(H_{12})p_{22}(H_{22})\Delta H_{11}
++ p_{11}(H_{11})\dv{p_{12}(H_{12})}{H_{12}}p_{22}(H_{22})\Delta H_{12} \\
+& \qquad\qquad
++ p_{11}(H_{11})p_{12}(H_{12})\dv{p_{22}(H_{22})}{H_{22}}\Delta H_{22} \\
+=\,& 
+P(H) 
++ P(H)\theta \qty(
+-2 H_{12}\dv{\ln[p_{11}(H_{11})]}{H_{11}}
++ \qty(H_{11} - H_{22})\dv{\ln[p_{12}(H_{12})]}{H_{12}}
++ 2 H_{12}\dv{\ln[p_{22}(H_{22})]}{H_{22}}
+). 
+\end{align}
+Observe that for the $P(H)$ to remain invariant for all $\theta$ (for all 
+rotations) and for all matrices $H$ the term in parenthesis 
+should vanish,
+\begin{align}
+-2 H_{12}\dv{\ln[p_{11}(H_{11})]}{H_{11}}
++ \qty(H_{11} - H_{22})\dv{\ln[p_{12}(H_{12})]}{H_{12}}
++ 2 H_{12}\dv{\ln[p_{22}(H_{22})]}{H_{22}}
+=\,& 
+0 
+\\
+\frac{2}{H_{11} - H_{22}} \qty(
+- \dv{\ln[p_{11}(H_{11})]}{H_{11}} 
++ \dv{\ln[p_{22}(H_{22})]}{H_{22}}
+)
+=\,& 
+-\frac{1}{H_{12}} \dv{\ln[p_{12}(H_{12})]}{H_{12}},
+\intertext{since the left-hand side is independent of $H_{12}$, we can equate it 
+to a constant:}
+%
+\frac{2}{H_{11} - H_{22}} \qty(
+- \dv{\ln[p_{11}(H_{11})]}{H_{11}} 
++ \dv{\ln[p_{22}(H_{22})]}{H_{22}}
+)
+=\,&
+A 
+\\
+\dv{\ln p_{11}}{H_{11}} + \frac{A}{2} H_{11}
+=& 
+\dv{\ln p_{22}}{H_{22}} + \frac{A}{2} H_{22} \\
+%
+\intertext{both sides now can be equated to another constant $B$, and
+arrive at the set of differential equations:}
+%
+-\frac{1}{H_{12}} \dv{\ln[p_{12}(H_{12})]}{H_{12}} = A \\
+\dv{\ln p_{11}}{H_{11}} + \frac{A}{2} H_{11} = B \\
+\dv{\ln p_{22}}{H_{22}} + \frac{A}{2} H_{22} = B.
+\end{align}
+Solving this equations 
+\begin{align}
+p_{11}(H_{11}) &= C_{11}e^{-A H_{11}^2/4 + BH_{11}} \\
+p_{12}(H_{12}) &= C_{12}e^{A H_{12}^2/2} \\
+p_{22}(H_{22}) &= C_{22}e^{-A H_{22}^2/4 + BH_{22}}.
+\end{align}
+Finally,
+\begin{equation}
+P(H) 
+= 
+C
+e^{-A (H_{11}^2 + H_{22}^2 + 2H_{12}^2)/4 + B(H_{11} + H_{22})}
+\end{equation}
+Without loss of generality we can impose $B = 0$. In consequence,
+we have arrived at our goal: the probability distribution for the 
+diagonal matrix elements become a Gaussian distribution with mean zero
+and variance $2/A$, and the probability distribution for the off-diagonal
+matrix elemenets become also a Gaussian distribution with mean zero as well, 
+but variance $1/A$. Without loss of generality we can take $A=2$ and 
+recover the definition made in Eq.~\ref{eq:GOE}.
+
+%\begin{align*}
+%\dd{P} =& 
+%\dv{p_{11}}{H_{11}}\dd{H_{11}}p_{12}p_{22} +
+%p_{11}\dv{p_{12}}{H_{12}}\dd{H_{12}}p_{22} +
+%p_{11}p_{12}\dv{p_{22}}{H_{22}}\dd{H_{22}} \\
+%=& 
+%\qty[2\cos\theta\sin\theta H_{12} + \sin^2\theta(H_{11} - H_{22})]
+%\dv{\ln p_{11}}{H_{11}} +
+%\qty[-2\cos\theta\sin\theta H_{12} - \sin^2\theta(H_{11} - H_{22})]
+%\dv{\ln p_{22}}{H_{22}} +\\
+%&\qquad 
+%\qty[2\sin^2\theta H_{12} + \sin\theta\cos\theta(H_{11} - H_{22})]
+%\dv{\ln p_{12}}{H_{12}},
+%\end{align*}
+%
+%Taylor expand 
+%\begin{align*}
+%P(H) \approx =& P(H) + \pdv{P}{H_{11}}\Delta H_{11} +
+%\pdv{P}{H_{12}}\Delta H_{12} +\pdv{P}{H_{22}}\Delta H_{22} \\
+%=& P(H) + P(H) \qty( \dv{\ln p_{11}}{H_{11}}\Delta H_{11} + 
+%\dv{\ln p_{12}}{H_{12}}\Delta H_{12} + \dv{\ln p_{22}}{H_{22}}\Delta H_{22}) \\
+%=& P(H) + P(H) \qty( -2\theta H_{12}\dv{\ln p_{11}}{H_{11}} + 
+%\theta\qty(H_{11} - H_{22})\dv{\ln p_{12}}{H_{12}} + 
+%2\theta H_{12}\dv{\ln p_{22}}{H_{22}})
+%\end{align*}
+%
+%\begin{equation}
+%\frac{1}{H_{12}}\dv{\ln p_{12}}{H_{12}} 
+%-\frac{2}{H_{11} - H_{22}}\qty(\dv{\ln p_{11}}{H_{11}}  
+%- \dv{\ln p_{22}}{H_{22}}) = 0.
+%\end{equation}
+%Recall the functions $p_{ij}$ are independent of each other. Hence, 
+%this equation defines three independent differential equations, whose solutions
+%yield:
+%
+%\begin{align*}
+%\frac{1}{H_{12}}\dv{\ln p_{12}}{H_{12}} 
+%=
+%\frac{2}{H_{11} - H_{22}}\qty(\dv{\ln p_{11}}{H_{11}}  
+%- \dv{\ln p_{22}}{H_{22}})
+%\end{align*}
+%We select the sparation constant to be $-4A$:
+%\begin{align}
+%\frac{1}{H_{12}}\dv{\ln p_{12}}{H_{12}} =& -4A \\
+%p_{12}(H_{12}) =& C_{12}e^{-2 A H_{12}^2}
+%\end{align}
+%
+%For the second equation
+%\begin{align}
+%\frac{2}{H_{11} - H_{22}}
+%\qty(
+%\dv{\ln p_{11}}{H_{11}} - \dv{\ln p_{22}}{H_{22}}
+%) 
+%=& 
+%-4A 
+%\\
+%\dv{\ln p_{11}}{H_{11}} + 2A H_{11}
+%=& 
+%\dv{\ln p_{22}}{H_{22}} + 2A H_{22}
+%\end{align}
+%Now the separation constant we take it as $-B$
+%\begin{align}
+%p_{{11}}(H_{11})
+%=& 
+%C_{11}
+%e^{
+%- \qty( A H_{11}^2 + B H_{11} )
+%} 
+%\\
+%p_{{22}}(H_{22})
+%=&
+%C_{22}
+%e^{
+%- \qty( A H_{22}^2 + B H_{22} )
+%}
+%\end{align}
+%
+%\begin{equation}
+%P(H) 
+%= 
+%C_{11}C_{12}C_{22}
+%e^{
+%- A \qty( H_{11}^2 + H_{22}^2 + 2H_{12}) 
+%+ 
+%B \qty(H_{11} + H_{22})
+%}
+%\end{equation}
+%We can take $C_{11}C_{12}C_{22}$ to be a single constant whose value is 
+%dictated by the normalization of $P(H)$. Without loss of generality we 
+%may choose $B=0$. Finally
+
+\section{Let's derive the Wigner surmise for the GOE}
+\subsection{Joint PDF of eigenvalues for a $2\times 2$ matrix sampled from the GOE}
+The eigenvalues of $H$ in Eq.~\eqref{eq:2by2_matrix} are given by:
+$$ \lambda_{1,2} = \frac{1}{2}\left( H_{11} + H_{22} \pm \sqrt{(H_{11} - H_{22})^2 + 4H_{12}^2} \right) $$
+
+\textbf{Explicación de la diagonalización}
+\begin{align*}
+H_{11} &= \lambda_1 \cos^2\theta + \lambda_2 \sin^2\theta, \\
+H_{22} &= \lambda_1 \sin^2\theta + \lambda_2 \cos^2\theta, \\
+H_{12} &= (\lambda_1 - \lambda_2) \cos\theta \sin\theta.
+\end{align*}
+
+\begin{align*}
+P(H) \dd{H} 
+&= 
+P(H_{11}, H_{12}, H_{22})
+\dd{H_{11}}\dd{H_{12}}\dd{H_{22}}
+\\
+&= 
+P(E_1, E_2, \theta)
+\abs{\pdv{(H_{11}, H_{22}, H_{12})}{(E_1, E_2, \theta)}}
+\dd{E_1}\dd{E_2} \dd{\theta}\\
+&= 
+e^{-(E_1^2 + E_2^2)/2}
+\abs{E_1 - E_2}
+\dd{E_1}\dd{E_2} \dd{\theta}
+\end{align*}
+
+\begin{align*}
+P(E_1, E_2) 
+= 
+2\pi\,
+e^{-(E_1^2 + E_2^2)/2}
+\abs{E_1 - E_2}
+\end{align*}
+
+$s = E_1 - E_2$ and $r = (E_1 + E_2)/2$, 
+
+\begin{align*}
+P(E_1, E_2) 
+\dd{E_1} \dd{E_2}
+= 
+2\pi\,
+e^{-(r^2 + s^2/4)}
+\abs{s}
+\abs{\pdv{(E_1, E_2)}{(r, s)}}
+\dd{r} \dd{s}
+\end{align*}
+
+\begin{align}
+P(s)
+= 
+\int_{-\infty}^{\infty}
+2\pi\,
+e^{-(r^2 + s^2/4)}
+\abs{s}
+\abs{\pdv{(E_1, E_2)}{(r, s)}}
+\dd{r}
+\end{align}
+
+To find the joint PDF of the eigenvalues, we perform a change of variables:
+$$ (H_{11}, H_{22}, H_{12}) \rightarrow (\lambda_1, \lambda_2, \theta) $$
+where $\theta$ is an angle parameterizing the eigenvectors. A standard choice is to define new variables:
+$$ \begin{aligned}
+H_{11} &= x + u \\
+H_{22} &= x - u \\
+H_{12} &= v
+\end{aligned} $$
+The eigenvalues then simplify to:
+$$ \lambda_{1,2} = x \pm \sqrt{u^2 + v^2} = x \pm r $$
+where we've defined the "radial" variable $r = \sqrt{u^2 + v^2}$.
+
+The Jacobian $J$ for this transformation $(H_{11}, H_{22}, H_{12}) \rightarrow (x, u, v)$ is a constant (its determinant is 1). The volume element becomes:
+$$ dH_{11}  dH_{22}  dH_{12} = dx  du  dv $$
+
+Now, we change to "polar" coordinates in the $(u, v)$ plane: $u = r \cos\theta$, $v = r \sin\theta$. The volume element becomes:
+$$ dx  du  dv = dx  (r  dr  d\theta) $$
+
+%### Step 4: Writing the Joint PDF in New Variables
+
+We consider the change of variables
+$$ \begin{aligned}
+H_{11} &= x + u \\
+H_{22} &= x - u \\
+H_{12} &= v
+\end{aligned} $$
+\begin{align}
+P(x, u, v) 
+= 
+\frac{1}{\pi^{3/2}}
+e^{-(x^2 + u^2 + v^2)}
+\end{align}
+\textbf{jacobiano aquí}
+Now we consider $r^2 = u^2 + v^2$, and $u = r\cos \theta$ and 
+$v = r\sin \theta$
+\begin{align}
+P(x, r, \theta)\dd{x}\dd{r}\dd{\theta}
+= 
+\frac{1}{\pi^{3/2}}
+e^{- (x^2 + r^2)}
+r \dd{x}\dd{r}\dd{\theta}
+\end{align}
+We observe that $r = s'/2$, then
+\begin{align}
+P(x, s, \theta)\dd{x}\dd{s}\dd{\theta}
+= 
+\frac{1}{4\,\pi^{3/2}}
+e^{-(x^2 + s'^2/4)}
+s' \dd{x}\dd{s'}\dd{\theta}.
+\end{align}
+Finally, to obtain the \textit{raw} level spacing distribution
+\begin{align}
+P_{\mathrm{raw}}(s')
+=\,&
+\frac{1}{4\,\pi^{3/2}}
+\int_{-\infty}^\infty
+\int_0^{2\pi}
+s'\,e^{-(x^2 + s'^2/4)}
+\dd{\theta} \dd{x} 
+\\
+=\,&
+\frac{1}{2\,\sqrt{\pi}}
+\int_{-\infty}^\infty
+s'\,e^{-(x^2 + s'^2/4)}
+\dd{x}
+\\
+=\,&
+\frac{s'}{2}e^{-s'^2/4}
+\end{align}
+
+To enforce $\langle s \rangle = 1$, we perform a change of scale. 
+Let $s = s' / \ev{s'} = s' / \sqrt{\pi}$. This new variable $s$ has mean 1. 
+The distribution for $s$ is found by requiring 
+$P(s)ds = P_{\mathrm{raw}}(s)ds'$, 
+so $P(s) = P_{\mathrm{raw}}(s') ds'/ds = \sqrt{\pi}P_{\mathrm{raw}}(s')$.
+Now, we rescale to unit mean spacing \textbf{aclarar}
+Compute the mean raw spacing:
+\begin{align}
+\langle s'\rangle &= \int_0^\infty s'\,P_{\text{raw}}(s')\,ds' \\
+&= \frac{1}{2}\int_0^\infty {s'}^2
+e^{-{s'}^2/(4)}\,ds'
+\\
+&= \sqrt{\pi}.
+\end{align}
+%Substitute $u={s'}^2/(4)$. Then
+%\begin{equation}
+%\int_0^\infty {s'}^2 e^{-{s'}^2/(4)}\,ds'
+%=4\sigma^3\int_0^\infty \sqrt{u}\,e^{-u}\,du.
+%\end{equation}
+%Since $\int_0^\infty u^{1/2}e^{-u}\,du = \Gamma(3/2) = \sqrt{\pi}/2$, 
+%this gives
+%\begin{equation}
+%\int_0^\infty {s'}^2 e^{-{s'}^2/(4)}\,ds'
+%= 2\sqrt{\pi}\,.
+%\end{equation}
+%So
+%\begin{equation}
+%\langle s'\rangle = \frac{1}{2}\cdot 
+%2\sqrt{\pi}\, = \sqrt{\pi}\,.
+%\end{equation}
+
+%Now define the normalized spacing
+%\begin{equation}
+%s = \frac{s'}{\langle s'\rangle} 
+%= \frac{s'}{\sqrt{\pi}}.
+%\end{equation}
+The change of variables gives
+$P(s) = \langle s'\rangle\;P_{\text{raw}}(s'=\langle s'\rangle s)$,
+thus obtaining the \emph{Wigner surmise for GOE ($\beta=1$)} with unit mean 
+spacing is
+\begin{equation}
+\boxed{P_{\mathrm{Wigner},\beta=1}(s) = \frac{\pi}{2}\,s\,
+\exp\!\left(-\frac{\pi}{4}s^{2}\right), \qquad s\geq 0.}
+\end{equation}
+
+%\begin{equation*}
+%P(s) = \frac{s}{2}e^{-s^2/4}
+%\end{equation*}
+%
+%To compare we need that $\ev{s} = \int s\,P(s) \dd{s} = 1$. 
+%\begin{equation}
+%P(s) = \frac{\pi s}{2} e^{-\pi s^2/4}
+%\end{equation}
+%
+%Let's express the exponent $\text{Tr}(H^2)$ in terms of $x, u, v$:
+%$$ \begin{aligned}
+%\text{Tr}(H^2) &= H_{11}^2 + H_{22}^2 + 2H_{12}^2 \\
+%&= (x+u)^2 + (x-u)^2 + 2v^2 \\
+%&= (x^2 + 2xu + u^2) + (x^2 - 2xu + u^2) + 2v^2 \\
+%&= 2x^2 + 2u^2 + 2v^2 \\
+%&= 2x^2 + 2r^2 \quad \text{(since } u^2+v^2=r^2\text{)}
+%\end{aligned} $$
+%The joint PDF becomes:
+%$$ P(x, r, \theta)  dx  dr  d\theta \propto \exp\left( -\frac{1}{2}(2x^2 + 2r^2) \right) r  dx  dr  d\theta \propto \exp(-x^2) \exp(-r^2)  r  dx  dr  d\theta $$
+%
+%The key point is the factor of $r$ coming from the Jacobian. This $r$ is the seed of level repulsion.
+
+%### Step 5: Integrating Out the "Junk" Variables
+
+%We don't care about the center point $x = (\lambda_1 + \lambda_2)/2$ or the eigenvector angle $\theta$. We want the joint PDF for the eigenvalues $\lambda_1$ and $\lambda_2$ themselves.
+%
+%From before:
+%$$ \lambda_1 = x + r, \quad \lambda_2 = x - r $$
+%The Jacobian for $(x, r) \rightarrow (\lambda_1, \lambda_2)$ is also a constant (1/2). So, $P(\lambda_1, \lambda_2) d\lambda_1 d\lambda_2 \propto P(x, r) dx dr$.
+%
+%We already have $P(x, r)$ from the previous step. To get it, we integrate over the irrelevant variable $\theta$ (from $0$ to $2\pi$), which just gives a factor of $2\pi$.
+%$$ P(x, r) \propto \int_0^{2\pi} P(x, r, \theta) d\theta \propto \exp(-x^2) \exp(-r^2) r $$
+%
+%Now we change variables to the eigenvalues:
+%$$ x = \frac{\lambda_1 + \lambda_2}{2}, \quad r = \frac{\lambda_1 - \lambda_2}{2} = \frac{s}{2} $$
+%where $s = |\lambda_1 - \lambda_2|$ is the level spacing. The Jacobian for $(x, r) \rightarrow (\lambda_1, \lambda_2)$ is $|\partial(x,r)/\partial(\lambda_1,\lambda_2)| = 1/2$.
+%
+%Putting it all together:
+%$$ \begin{aligned}
+%P(\lambda_1, \lambda_2) &\propto P(x, r) \times |J| \\
+%&\propto \left[ \exp\left(-(\frac{\lambda_1+\lambda_2}{2})^2\right) \exp\left(-(\frac{\lambda_1-\lambda_2}{2})^2\right) \left|\frac{\lambda_1-\lambda_2}{2}\right| \right] \times \frac{1}{2} \\
+%&\propto |\lambda_1 - \lambda_2|  \exp\left( -\frac{1}{4}(\lambda_1^2 + \lambda_2^2 + 2\lambda_1\lambda_2 + \lambda_1^2 + \lambda_2^2 - 2\lambda_1\lambda_2) \right) \\
+%&\propto |\lambda_1 - \lambda_2|  \exp\left( -\frac{1}{4}(2\lambda_1^2 + 2\lambda_2^2) \right) \\
+%P(\lambda_1, \lambda_2) &\propto |\lambda_1 - \lambda_2|  \exp\left( -\frac{1}{2}(\lambda_1^2 + \lambda_2^2) \right)
+%\end{aligned} $$
+%This is the famous **joint eigenvalue distribution** for the $2\times2$ GOE. The term $|\lambda_1 - \lambda_2|$ ensures that the probability of two eigenvalues being degenerate ($\lambda_1 = \lambda_2$) is zero. This is **level repulsion**.
+
+%\subsection{Finally, the level spacing distribution $P(s)$}
+
+%We will derive the distribution for the most common case, the Gaussian Orthogonal Ensemble (GOE), which models time-reversal symmetric systems without half-integer spin.
+%$$ H = \begin{pmatrix} H_{11} & H_{12} \\
+%H_{12} & H_{22} \end{pmatrix} $$
+%Since each matrix element we assume is independent of the rest we have
+%$P(H) = p_{11}(H_{11})p_{22}(H_{22})p_{12}(H_{12})$, that is, the probability 
+%of obtaining a sampled matrix $H$ is equal to the product of the probabilities 
+%of obtaining each of its matrix entries. To be a proper measure of probability
+%we need $\int P(H)\dd{P(H)} = 1$.
+
+% Step 1: The Philosophical Setup - From a Large Matrix to a 2x2 Model
+
+The full level spacing distribution $P(s)$ for an $N \times N$ matrix in the large-$N$ limit is complicated. Wigner's brilliant insight was that the essential local statistics, like the repulsion between two adjacent levels, could be captured by studying the simplest non-trivial case: a $2 \times 2$ random matrix.
+The surmise (an educated guess) is that the result for the $2 \times 2$ case will be very close to the result for large matrices. This turns out to be remarkably true.
+
+% Step 2: Defining the 2x2 GOE Matrix
+
+%A Hamiltonian in the GOE is real and symmetric. Our $2 \times 2$ model is:
+%$$ H = \begin{pmatrix} H_{11} & H_{12} \\
+%H_{12} & H_{22} \end{pmatrix} $$
+%The matrix elements are random variables. The "Gaussian" in GOE means they are drawn from a Gaussian (normal) distribution. The probability measure for the entire matrix is:
+%$$ P(H) dH \propto \exp\left( -\frac{1}{2}\text{Tr}(H^2) \right) dH $$
+%where $dH = dH_{11}  dH_{22}  dH_{12}$ is the volume element in matrix space.
+%
+%Since the trace is invariant under orthogonal transformations, this distribution is invariant under orthogonal conjugation, $H \rightarrow O^T H O$.
+%
+%Explicitly writing the trace:
+%$$ \text{Tr}(H^2) = H_{11}^2 + H_{22}^2 + 2H_{12}^2 $$
+%Therefore, the joint probability density function (PDF) for the matrix elements is:
+%$$ P(H_{11}, H_{22}, H_{12}) \propto \exp\left( -\frac{1}{2}(H_{11}^2 + H_{22}^2 + 2H_{12}^2) \right) $$
+%%Notice the factor of 2 for the off-diagonal term. This is crucial.
+
+%### Step 3: Changing Variables to Eigenvalues and Angles
+
+%### Step 6: Deriving the Spacing Distribution $P(s)$
+
+%We want the distribution of the spacing $s = |\lambda_1 - \lambda_2|$. We must "integrate out" the dependence on the center of mass $x$.
+%
+%1.  Start from the joint PDF $P(\lambda_1, \lambda_2)$.
+%2.  Change variables to $s = |\lambda_1 - \lambda_2|$ and $y = (\lambda_1 + \lambda_2)/2$.
+%3.  The Jacobian for this transformation is 1.
+%4.  The joint PDF becomes:
+%$$ P(s, y) \propto s  \exp\left( -\frac{1}{2}\left[ (y + s/2)^2 + (y - s/2)^2 \right] \right) $$
+%5.  Expand the exponent:
+%$$ \begin{aligned}
+%(y + s/2)^2 + (y - s/2)^2 &= (y^2 + ys + s^2/4) + (y^2 - ys + s^2/4) \\
+%&= 2y^2 + s^2/2
+%\end{aligned} $$
+%6.  So the joint PDF is:
+%$$ P(s, y) \propto s  \exp\left( -\frac{1}{2}(2y^2 + s^2/2) \right) = s  \exp(-y^2) \exp(-s^2/4) $$
+%7.  To find the PDF for $s$ alone, we integrate over all possible center locations $y$:
+%$$ P(s) \propto \int_{-\infty}^{\infty} P(s, y) dy \propto s  \exp(-s^2/4) \int_{-\infty}^{\infty} \exp(-y^2) dy $$
+%8.  The integral $\int_{-\infty}^{\infty} \exp(-y^2) dy$ is just a constant ($\sqrt{\pi}$). Therefore:
+%$$ P(s) \propto s  \exp(-s^2/4) $$
+%
+%%### Step 7: Normalization and Unfolding
+%
+%The final step is to normalize this distribution. We require:
+%1.  $\int_0^{\infty} P(s) ds = 1$
+%2.  The mean level spacing $\langle s \rangle = \int_0^{\infty} s P(s) ds = 1$ (This is the "unfolding" process, which ensures the energy scale is dimensionless and universal).
+%
+%Let's find the constant $A$ such that $P(s) = A s  \exp(-s^2/4)$ is normalized.
+%$$ \begin{aligned}
+%1 &= \int_0^{\infty} A s  \exp(-s^2/4) ds \\
+%\end{aligned} $$
+%Make a substitution: $u = s^2/4$, so $du = (s/2)ds$, or $s  ds = 2 du$.
+%$$ \begin{aligned}
+%1 &= A \int_0^{\infty} \exp(-u) (2 du) \\
+%  &= 2A \int_0^{\infty} \exp(-u) du \\
+%  &= 2A [ -\exp(-u) ]_0^{\infty} \\
+%  &= 2A (0 - (-1)) \\
+%  &= 2A
+%\end{aligned} $$
+%Therefore, $A = \frac{1}{2}$.
+%The normalized distribution is:
+%$$ P(s) = \frac{s}{2} \exp(-s^2/4) $$
+%Let's check the mean spacing $\langle s \rangle$:
+%$$ \begin{aligned}
+%\langle s \rangle &= \int_0^{\infty} s P(s) ds = \int_0^{\infty} s \left( \frac{s}{2} \exp(-s^2/4) \right) ds \\
+%&= \frac{1}{2} \int_0^{\infty} s^2 \exp(-s^2/4) ds
+%\end{aligned} $$
+%This is a Gaussian integral. Solving it (e.g., via integration by parts or looking up its value) gives $\langle s \rangle = \sqrt{\pi}$. This is **not** 1.
+%
+%To enforce $\langle s \rangle = 1$, we perform a change of scale. Let $s' = s / \langle s \rangle = s / \sqrt{\pi}$. This new variable $s'$ has mean 1. The distribution for $s'$ is found by requiring $P(s')ds' = P(s)ds$, so $P(s') = P(s) ds/ds' = P(s) \sqrt{\pi}$.
+%
+%Substitute $s = s'\sqrt{\pi}$ into our expression:
+%$$ \begin{aligned}
+%P(s') &= \sqrt{\pi} \cdot P(s = s'\sqrt{\pi}) \\
+%      &= \sqrt{\pi} \cdot \frac{(s'\sqrt{\pi})}{2} \exp\left( -\frac{(s'\sqrt{\pi})^2}{4} \right) \\
+%      &= \sqrt{\pi} \cdot \frac{\sqrt{\pi} s'}{2} \exp\left( -\frac{\pi s'^2}{4} \right) \\
+%      &= \frac{\pi s'}{2} \exp\left( -\frac{\pi s'^2}{4} \right)
+%\end{aligned} $$
+%Dropping the prime for the final, universally normalized spacing, we arrive at the **Wigner Surmise for the GOE**:
+%
+%$$ P(s) = \frac{\pi s}{2} \exp\left( -\frac{\pi s^2}{4} \right) $$
+
+%### Summary and Significance
+
+This derivation showed us:
+1.  **The Origin of Repulsion**: The term $|\lambda_1 - \lambda_2|$ comes directly from the Jacobian of the transformation to eigenvalue space. It is a geometric consequence of the symmetry of the matrix ensemble.
+2.  **The Form**: The distribution is linear in $s$ for small $s$ ($P(s) \to 0$ as $s \to 0$), showing strong linear repulsion, and has a Gaussian tail for large $s$.
+3.  **Universality**: While derived for a $2\times2$ matrix, this $P(s)$ is an astonishingly good approximation for the spacing distribution of large GOE matrices and, most importantly, for the spectra of real physical systems whose classical counterparts are chaotic (e.g., stadium billiards, heavy nuclei). This is the profound connection between quantum chaos and random matrix theory.
+
+This result for the GOE is often called the **Wigner-Dyson distribution**. The corresponding results for the Gaussian Unitary Ensemble (GUE) and Gaussian Symplectic Ensemble (GSE) are $P(s) \propto s^2 e^{-s^2}$ and $P(s) \propto s^4 e^{-s^2}$, respectively, reflecting their different symmetries and degree of level repulsion.
+
+\subsection*{5. Statement for GUE ($\beta=2$)}
+
+For GUE (complex Hermitian, Dyson index $\beta=2$) the joint eigenvalue 
+density has factor $|\lambda_2-\lambda_1|^\beta$ with $\beta=2$. The 
+normalized unit-mean spacing distribution is
+\begin{equation}
+\boxed{p_{\mathrm{Wigner},\beta=2}(s) = \frac{32}{\pi^2}\,s^2\,
+\exp\!\left(-\frac{4}{\pi}s^2\right).}
+\end{equation}
+Here one sees the small-$s$ repulsion $p(s)\propto s^\beta$ and a 
+Gaussian tail.
+
+\subsection*{6. Remarks}
+
+\begin{itemize}
+\item The Wigner surmise is exact for $2\times2$ random matrices and 
+gives an excellent approximation to the nearest-neighbor spacing 
+distribution of large random matrices (GOE/GUE) after unfolding the 
+spectrum (rescaling by the local mean level density).
+\item The small-$s$ behavior $p(s)\sim s^\beta$ encodes level repulsion: 
+eigenvalues avoid crossing. $\beta$ depends on symmetry class 
+($\beta=1$ real time-reversal, $\beta=2$ complex unitary, 
+$\beta=4$ symplectic).
+\item To apply to a physical spectrum one must first \emph{unfold} it 
+(divide raw spacings by the local mean spacing $\rho(E)^{-1}$) so that 
+the mean spacing is 1.
+\end{itemize}
+
+\end{document}
