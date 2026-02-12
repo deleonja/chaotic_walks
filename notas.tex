@@ -1,77 +1,34 @@
-\documentclass[10pt,letterpaper]{article} % {{{
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
+\documentclass[10pt,letterpaper]{article} %{
+
+\usepackage[debug]{japreamble}
+
 \graphicspath{{tmp/}}
-\usepackage{physics}
-\usepackage{bbm}
-\usepackage[dvipsnames]{xcolor}
-\usepackage[margin=1in]{geometry}
-\usepackage{booktabs}
-\usepackage{float}
 
-\newcommand{\eref}[1]{eq.~(\ref{#1})} 
-\newcommand{\sref}[1]{sec.~\ref{#1}}
-\newcommand{\fref}[1]{Fig.~\ref{#1}}
-\newcommand{\tref}[1]{table~\ref{#1}}
-\newcommand{\Eref}[1]{Eq.~(\ref{#1})} 
-\newcommand{\Sref}[1]{Sec.~\ref{#1}}
-\newcommand{\Fref}[1]{Fig.~\ref{#1}}  
-\newcommand{\Tref}[1]{Table~\ref{#1}}
-
-\usepackage{hyperref}
-\hypersetup{
-colorlinks=true,
-linkcolor=blue,
-filecolor=blue,      
-citecolor=blue,
-urlcolor=blue,
-pdftitle={},
-pdfauthor=author={Jose Alfredo de Leon},
-}
-
-\usepackage{tikz}
-
-\usepackage[mathlines]{lineno}  \linenumbers \setlength\linenumbersep{5pt}
-\usepackage[inline]{showlabels,rotating}
-\renewcommand{\showlabelrefline}{\hrule width 0pt height 3ex depth 0pt}
-\renewcommand{\showlabelfont}{\small\slshape\color{red!70}}
-\usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
-\definecolor{jacolor}{RGB}{200,40,0} \FXRegisterAuthor{ja}{aja}{\color{jacolor}JA}
+%\definecolor{jacolor}{RGB}{200,40,0} \FXRegisterAuthor{ja}{aja}{\color{jacolor}JA}
 \FXRegisterAuthor{cp}{acp}{\color{blue}CP}
-\FXRegisterAuthor{cd}{acd}{\color{purple}CD}
+%\FXRegisterAuthor{cd}{acd}{\color{purple}CD}
 
 %\decimalpoint
 
 \newcommand{\one}{\mathbbm{1}}
 
-\newtheorem{theorem}{Teorema}
-\newtheorem{proof}{Demostración}
-\newtheorem{hypothesis}{Hipótesis}
-
 \title{On ``The simplest 2D quantum walk detects chaoticity''}
-\author{Jose Alfredo de Leon}
-\date{\today}
+%\author{Jose Alfredo de Leon}
+\date{}
 
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
 \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
-
-\newcommand{\rhoel}[2]{\rho_{#1,#2} \dyad{#1}{#2}}
-\newcommand{\p}{p_{\text{error}}}
-
-
+%}
 \begin{document}
 \maketitle
 
+% Main body{
 \section{Summary}
 In Ref.~\cite{alonso-lobo_2025_simplest}, Alonso-Lobo, Carlo, and Borondo 
 investigate a two-dimensional discrete-time quantum walk (DTQW) inside a 
 desymmetrized Bunimovich billiard (see Fig.~\ref{fig:bunimovich}) to identify 
-signatures of chaos. 
+signatures of chaos.
 
 The first indicator they examine is the level spacing distribution \( P(s) \) 
 of the eigenphases of the DTQW step, expecting it to match the predictions of 
@@ -81,8 +38,7 @@ exhibit chaotic behavior, I suspect there may be an issue related to the
 unfolding procedure or the presence of unaccounted symmetries. In fact, even 
 for the rectangular billiard, the \( P(s) \) distribution does not conform to 
 a Poisson distribution, which suggests that additional factors influencing the 
-spectral statistics need to be considered.
-
+spectral statistics need to be considered. 
 
 \begin{figure}
 \centering
@@ -177,7 +133,7 @@ prediction has been derived analytically~\cite{atas_2013_distribution}.
 \includegraphics[width=0.7\textwidth]{Uv2_xc_50_alpha_Pi-4_beta_Pi-3.png}
 \caption{Monedas de la v2 del arxiv~\cite{alonso-lobo_2025_simplest}. 
 Dimensiones del estadio:
-$|=\pi / 4$, $\beta=\pi / 3$. $x_c = 50$, $x_r=2 x_c$ y $y_u = x_c$.}
+$\alpha=\pi / 4$, $\beta=\pi / 3$. $x_c = 50$, $x_r=2 x_c$ y $y_u = x_c$.}
 \label{fig:1}
 \end{figure}
 
@@ -213,6 +169,84 @@ entanglement between position and spin degrees of freedom. Would it be
 worthwhile to investigate if it detects the integrable-chaos transition?
 \end{itemize}
 
+\section{2D DTQW with a 4-degrees coin}
+
+% ----------------------------------------------------------------------
+% START OF QUANTUM WALK NOTES
+% ----------------------------------------------------------------------
+
+\section{The Shift Operator and Boundary Conditions}
+In the context of a 2D Discrete-Time Quantum Walk (DTQW) confined within a Bunimovich stadium, the Hilbert space is defined by $\mathcal{H} = \mathcal{H}_P \otimes \mathcal{H}_C$, where $\mathcal{H}_P$ represents the lattice position spanned by $\ket{x, y}$, and $\mathcal{H}_C$ is the four-dimensional coin space spanned by the basis states $\{\ket{\uparrow}, \ket{\downarrow}, \ket{\leftarrow}, \ket{\rightarrow}\}$.
+
+To confine the walker within the Bunimovich geometry $\Omega$, the Shift operator $S$ acts conditionally depending on the validity of the target site. Let $\mathbf{x}=(x,y)$ denote the lattice position and $\mathbf{e}_c$ the unit displacement vector associated with coin state $\ket{c}$. The action of $S$ on a generic basis state $\ket{\mathbf{x}, c}$ is defined as:
+\begin{equation}
+  \label{eq:boundary_shift}
+  S \ket{\vb{x}, c} = 
+  \begin{cases} 
+    \ket{\vb{x} + \vb{e}_c, c} & \text{if } (\vb{x} + \vb{e}_c) \in \Omega \quad \text{(Bulk propagation)} \\
+    \ket{\vb{x}, \bar{c}} & \text{if } (\vb{x} + \vb{e}_c) \notin \Omega \quad \text{(Boundary reflection)}
+  \end{cases}
+\end{equation}
+where $\bar{c}$ denotes the reversed direction index (e.g., if $c = \rightarrow$, then $\bar{c} = \leftarrow$). This "flip-flop" boundary condition ensures global unitarity by mapping any trajectory that would exit the billiard back into the valid Hilbert space $\mathcal{H}_{\Omega}$.
+
+\subsection{$C_{2v}$-Symmetric Coin Families}
+
+To investigate quantum chaos in the stadium, the coin operator $C$ must respect the geometric symmetries of the domain. For the Bunimovich stadium, the relevant symmetry group is $C_{2v}$ (invariance under reflections $\sigma_x$, $\sigma_y$ and $\pi$-rotation).
+
+Below are three one-parameter families of coins $C(\theta)$ that satisfy $[C, \mathcal{R}_{C_{2v}}] = 0$, ensuring that any breaking of symmetry in the probability distribution arises solely from the chaotic dynamics of the boundary, not the coin bias.
+
+\subsection{The Weighted Grover Family (Anisotropic Diffusion)}
+
+This family generalizes the standard Grover diffusion coin. It is constructed as a reflection over a symmetric superposition state $|s(\theta)\rangle$.
+\begin{equation}
+  C_G(\theta) = 2 |s(\theta)\rangle \langle s(\theta)| - I_4
+\end{equation}
+where the superposition state allows for tuning the coupling between horizontal and vertical degrees of freedom:
+\begin{equation}
+  |s(\theta)\rangle = \cos\theta \left( \frac{|\uparrow\rangle + |\downarrow\rangle}{\sqrt{2}} \right) + \sin\theta \left( \frac{|\leftarrow\rangle + |\rightarrow\rangle}{\sqrt{2}} \right)
+\end{equation}
+\begin{itemize}
+  \item \textbf{Control Parameter:} $\theta$ acts as a tunability parameter for anisotropy. At $\theta = \pi/4$, we recover the isotropic Grover coin (maximum diffusion). 
+  \item \textbf{Transport Analysis:} Varying $\theta$ allows one to study how the classical chaotic map (the stadium billiard) reacts to walkers with different "masses" or drift velocities along the longitudinal vs. transverse axes.
+\end{itemize}
+
+\subsubsection{The Block-Diagonal Rotation Family (Separable Dynamics)}
+
+This family consists of independent rotations for the vertical and horizontal subspaces. It does not mix the $x$ and $y$ coin states directly; mixing occurs \emph{only} via boundary reflections in the curved sections of the stadium.
+\begin{equation}
+  C_B(\phi) = \begin{pmatrix} 
+    \cos\phi & i\sin\phi & 0 & 0 \\
+    i\sin\phi & \cos\phi & 0 & 0 \\
+    0 & 0 & \cos\phi & i\sin\phi \\
+    0 & 0 & i\sin\phi & \cos\phi 
+  \end{pmatrix}
+\end{equation}
+\begin{itemize}
+  \item \textbf{Geometric Probe:} Since this coin creates no entanglement between $x$ and $y$ directions in the bulk, it is the ideal choice for isolating the "geometric chaos" generated purely by the semicircular boundaries of the stadium.
+  \item \textbf{Chirality:} The parameter $\phi$ controls the chirality or phase accumulation, useful for studying time-reversal symmetry breaking effects.
+\end{itemize}
+
+\subsubsection{The Generalized Hadamard Family ($H_4$)}
+
+A parameterization of the $4\times 4$ Hadamard matrix that maintains unitarity and symmetry, often used to study interference effects.
+\begin{equation}
+  C_H(\xi) = \frac{1}{\sqrt{2}} \begin{pmatrix} 
+    R(\xi) & R(\xi) \\
+    R(\xi) & -R(\xi) 
+  \end{pmatrix}, \quad \text{where } R(\xi) = \begin{pmatrix} \cos\xi & \sin\xi \\ \sin\xi & -\cos\xi \end{pmatrix}
+\end{equation}
+\begin{itemize}
+  \item \textbf{Interference Contrast:} This coin maximizes quantum interference. In chaotic systems, it is useful for analyzing the transition from constructive interference (localization) to uniform distribution (ergodicity) as the stadium deformation increases.
+\end{itemize}
+
+% ----------------------------------------------------------------------
+% END OF NOTES
+% ----------------------------------------------------------------------
+%}
+
+% References{
 \bibliographystyle{unsrt}
 \bibliography{referencias.bib}
+%}
+
 \end{document}
