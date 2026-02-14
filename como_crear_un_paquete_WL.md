@@ -77,7 +77,7 @@ El mensaje de uso debe empezar siempre con el nombre de la función y sus argume
 
 Sólo deberás hacer esto cuando crees un nuevo paquete.
 
-1. **Encuentra la ruta donde Wolfram guarde los paquetes en tu máquina:** Ejecuta `FileNameJoin[{$UserBaseDirectory, "Applications"}]` en Mathematica.
+1. **Encuentra la ruta donde Wolfram guarda los paquetes en tu máquina:** Ejecuta `FileNameJoin[{$UserBaseDirectory, "Applications"}]` en Mathematica.
 2. Guarda ahí tu archivo `.wl` del paquete.
 3. **Listo.** Ahora puedes cargar el paquete ejecutando ```Needs["MiPaquete`"]``` desde cualquier notebook. 
 
