@@ -1,0 +1,248 @@
+% !TEX root = main.tex
+
+\section{Summary}
+In Ref.~\cite{alonso-lobo_2025_simplest}, Alonso-Lobo, Carlo, and Borondo 
+investigate a two-dimensional discrete-time quantum walk (DTQW) inside a 
+desymmetrized Bunimovich billiard (see Fig.~\ref{fig:bunimovich}) to identify 
+signatures of chaos.
+
+The first indicator they examine is the level spacing distribution \( P(s) \) 
+of the eigenphases of the DTQW step, expecting it to match the predictions of 
+random matrix theory (RMT). However, the observed \( P(s) \) does 
+not satisfactorily align with RMT predictions. Given that the system should 
+exhibit chaotic behavior, I suspect there may be an issue related to the 
+unfolding procedure or the presence of unaccounted symmetries. In fact, even 
+for the rectangular billiard, the \( P(s) \) distribution does not conform to 
+a Poisson distribution, which suggests that additional factors influencing the 
+spectral statistics need to be considered. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{bunimovich.pdf}
+\caption{Desymmetrized Bunimovich stadium.
+Figure taken and modified from~\cite{alonso-lobo_2025_simplest}.}
+\label{fig:bunimovich}
+\end{figure}
+
+\section*{2D DTQW in a Bunimovich stadium}
+One step of the DTQW in the desymmetrized Bunimovich stadium of 
+Fig.~\ref{fig:bunimovich} in~\cite{alonso-lobo_2025_simplest} is given by:
+\begin{equation}
+U = S_x C_2 S_y C_1,
+\end{equation}
+where \( S_x \) and \( S_y \) are the conditional shift operators that move the 
+particle through the stadium, and \( C_1 \) and \( C_2 \) are the coin operators 
+that introduce quantum superpositions in the internal degree of freedom. 
+
+The shift operators conditionally displace the walker in the \( x \)- and \( y \)- 
+directions, depending on the state of the internal coin degree of freedom:
+\begin{align}
+S_x &= 
+\sum_{x=1}^{x_{\max}(y)-1} \dyad{x+1}{x}\otimes \one_y \otimes \dyad{0}_c +
+\sum_{x=1}^{x_{\max}(y)} \dyad{x-1}{x}\otimes \one_y  \otimes \dyad{1}_c + \\
+&\qquad  \dyad{x_{\max}(y)}\otimes \one_y \otimes \dyad{1}{0}_c + 
+\dyad{0}\otimes \one_y \otimes \dyad{0}{1}_c, \\
+%
+S_y &= 
+\sum_{y=1}^{y_{\max}(x)-1} \one_x \otimes \dyad{y+1}{y}\otimes \dyad{0}_c +
+\sum_{y=1}^{y_{\max}(x)} \one_x \otimes \dyad{y-1}{y}\otimes \dyad{1}_c + \\
+&\qquad 
+\one_x \otimes \dyad{y_{\max}(x)}\otimes \dyad{1}{0}_c + 
+\one_x \otimes \dyad{0}\otimes \dyad{0}{1}_c.
+\end{align}
+These operators ensure that the walker's movement is dictated by the coin state, 
+which determines whether the displacement occurs forward or backward along each 
+spatial direction.
+
+The coin operators introduce quantum coherence by applying a unitary rotation in 
+the internal spin space at each step:
+\begin{equation}
+C_1 = \one_x \otimes \one_y \otimes 
+\mqty(\cos\alpha & \sin\alpha \\ -e^{i\pi/4}\sin\alpha & e^{i\pi/4}\cos\alpha),
+\quad 
+C_2 = \one_x \otimes \one_y \otimes 
+\mqty(\cos\beta & \sin\beta \\ -e^{i\pi/4}\sin\beta & e^{i\pi/4}\cos\beta).
+\end{equation}
+These unitary transformations mix the two internal states of the walker, playing 
+a crucial role in generating interference effects that distinguish quantum walks 
+from their classical counterparts.
+
+This formulation defines a discrete-time quantum walk (DTQW) in which the quantum 
+state of the walker evolves through a sequence of conditional shifts and internal 
+coin rotations. The interplay between the shift and coin operations determines 
+the statistical properties of the eigenphases of the evolution operator \( U \), 
+which are key to analyzing the spectral signatures of chaos in the system.
+
+\section{Distribution of Level Spacing Ratios $P(r)$}
+Results from~\cite{alonso-lobo_2025_simplest} for the level spacing distribution 
+$P(s)$ of the eigenphases of a DTQW step in the Bunimovich and rectangular 
+billiards are shown in Fig.~\ref{fig:level:spacing:dist}. The authors argue that, 
+although their statistics do not match the RMT prediction for the Bunimovich 
+billiard nor the Poisson statistics for the rectangular billiard, the difference 
+between both statistics distinguishes the chaotic and integrable cases.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure4.png}
+\caption{
+Unfolded level spacing distributions $P(s)$. In (a) and (b) the Bunimovich stadium 
+with coin angles $\alpha = \beta = \pi/4$, and $\alpha = \pi/4, \beta =\pi/3$, 
+respectively. In (c) and (d) the rectangular stadium with coin angles 
+$\alpha = \beta = \pi/4$, and $\alpha = \pi/4, \beta =\pi/3$, 
+respectively. Green and blue dashed lines represent Poisson distribution and 
+Wigner surmise for GOE ensemble, respectively, and red solid line is the best 
+fit for the Brody distribution.
+Figure taken from~\cite{alonso-lobo_2025_simplest}.}
+\label{fig:level:spacing:dist}
+\end{figure}
+
+From my perspective, one should be able to match the RMT prediction for the 
+Bunimovich billiard and Poisson statistics for the rectangular one. If not, there 
+may be an issue with desymmetrization or the unfolding of eigenphases. Since no 
+obvious symmetry exists in the case of different coins ($C_1 \ne C_2$), I initially 
+suspected that the unfolding procedure was the problem. A way to circumvent this 
+is to compute the level spacing ratio distribution $P(r)$, for which the RMT 
+prediction has been derived analytically~\cite{atas_2013_distribution}. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{Uv2_xc_50_alpha_Pi-4_beta_Pi-3.png}
+\caption{Monedas de la v2 del arxiv~\cite{alonso-lobo_2025_simplest}. 
+Dimensiones del estadio:
+$\alpha=\pi / 4$, $\beta=\pi / 3$. $x_c = 50$, $x_r=2 x_c$ y $y_u = x_c$.}
+\label{fig:1}
+\end{figure}
+
+Figure~\ref{fig:1} shows the distribution $P(r)$ for $80\%$ of the eigenphases, 
+taken from the middle of the spectrum. It closely matches the Wigner surmise for 
+the GOE, clearly supporting the BGS conjecture. However, when computing the 
+histogram of $P(r)$ for the case of equal coins $(C_1 = C_2)$, corresponding to 
+Fig.~\ref{fig:level:spacing:dist}(a), a large number of occurrences of $\tilde{r} = 0$ 
+were found, preventing the construction of a reliable histogram of $P(r)$. Since 
+the unfolding should not be an issue in this case, I am inclined to think that an 
+additional, unaccounted-for symmetry—besides the spatial one—is present. However, 
+this symmetry is not obvious to me, and I have not yet been able to resolve the 
+discrepancy with the Wigner surmise.
+
+Notably, the left-most bin in Fig.~\ref{fig:level:spacing:dist}(a) and (c) is 
+systematically taller than in Fig.~\ref{fig:level:spacing:dist}(b) and (d), further 
+supporting the hypothesis of a missing symmetry when $C_1 = C_2$.  
+
+\pagebreak
+\section{Open questions}
+\begin{itemize}
+\item Is there a symmetry that prevents the spectral statistics from matching 
+Poisson and RMT predictions?
+\item Could it be a quasi-symmetry?  
+\item If such a symmetry exists, how can it be identified?
+\item The paper discusses other static signatures of chaos, such as the morphology 
+of the eigenfunctions of a DTQW step. Would it be interesting to investigate 
+dynamical signatures, such as the spectral form factor, survival probability, 
+and Loschmidt echo?
+\item While the original Bunimovich stadium problem is formulated as a 
+single-particle system, in the DTQW formulation, one may consider the 
+entanglement between position and spin degrees of freedom. Would it be 
+worthwhile to investigate if it detects the integrable-chaos transition?
+\end{itemize}
+
+\section{2D DTQW with a 4-degrees coin}
+
+% ----------------------------------------------------------------------
+% START OF QUANTUM WALK NOTES
+% ----------------------------------------------------------------------
+
+\section{The Shift Operator and Boundary Conditions}
+In the context of a 2D Discrete-Time Quantum Walk (DTQW) confined within a Bunimovich stadium, the Hilbert space is defined by $\mathcal{H} = \mathcal{H}_P \otimes \mathcal{H}_C$, where $\mathcal{H}_P$ represents the lattice position spanned by $\ket{x, y}$, and $\mathcal{H}_C$ is the four-dimensional coin space spanned by the basis states $\{\ket{\uparrow}, \ket{\downarrow}, \ket{\leftarrow}, \ket{\rightarrow}\}$.
+
+To confine the walker within the Bunimovich geometry $\Omega$, the Shift operator $S$ acts conditionally depending on the validity of the target site. Let $\mathbf{x}=(x,y)$ denote the lattice position and $\mathbf{e}_c$ the unit displacement vector associated with coin state $\ket{c}$. The action of $S$ on a generic basis state $\ket{\mathbf{x}, c}$ is defined as:
+\begin{equation}
+\label{eq:boundary_shift}
+S \ket{\vb{x}, c} = 
+\begin{cases} 
+\ket{\vb{x} + \vb{e}_c, c} & \text{if } (\vb{x} + \vb{e}_c) \in \Omega \quad \text{(Bulk propagation)} \\
+\ket{\vb{x}, \bar{c}} & \text{if } (\vb{x} + \vb{e}_c) \notin \Omega \quad \text{(Boundary reflection)}
+\end{cases}
+\end{equation}
+where $\bar{c}$ denotes the reversed direction index (e.g., if $c = \rightarrow$, then $\bar{c} = \leftarrow$). This "flip-flop" boundary condition ensures global unitarity by mapping any trajectory that would exit the billiard back into the valid Hilbert space $\mathcal{H}_{\Omega}$.
+
+\subsection{$C_{2v}$-Symmetric Coin Families}
+
+To investigate quantum chaos in the stadium, the coin operator $C$ must respect the geometric symmetries of the domain. For the Bunimovich stadium, the relevant symmetry group is $C_{2v}$ (invariance under reflections $\sigma_x$, $\sigma_y$ and $\pi$-rotation).
+
+Below are three one-parameter families of coins $C(\theta)$ that satisfy $[C, \mathcal{R}_{C_{2v}}] = 0$, ensuring that any breaking of symmetry in the probability distribution arises solely from the chaotic dynamics of the boundary, not the coin bias.
+
+\subsection{The Weighted Grover Family (Anisotropic Diffusion)}
+
+This family generalizes the standard Grover diffusion coin. It is constructed as a reflection over a symmetric superposition state $|s(\theta)\rangle$.
+\begin{equation}
+C_G(\theta) = 2 |s(\theta)\rangle \langle s(\theta)| - I_4
+\end{equation}
+where the superposition state allows for tuning the coupling between horizontal and vertical degrees of freedom:
+\begin{equation}
+|s(\theta)\rangle = \cos\theta \left( \frac{|\uparrow\rangle + |\downarrow\rangle}{\sqrt{2}} \right) + \sin\theta \left( \frac{|\leftarrow\rangle + |\rightarrow\rangle}{\sqrt{2}} \right)
+\end{equation}
+\begin{itemize}
+\item \textbf{Control Parameter:} $\theta$ acts as a tunability parameter for anisotropy. At $\theta = \pi/4$, we recover the isotropic Grover coin (maximum diffusion). 
+\item \textbf{Transport Analysis:} Varying $\theta$ allows one to study how the classical chaotic map (the stadium billiard) reacts to walkers with different "masses" or drift velocities along the longitudinal vs. transverse axes.
+\end{itemize}
+
+\subsubsection{The Block-Diagonal Rotation Family (Separable Dynamics)}
+
+This family consists of independent rotations for the vertical and horizontal subspaces. It does not mix the $x$ and $y$ coin states directly; mixing occurs \emph{only} via boundary reflections in the curved sections of the stadium.
+\begin{equation}
+C_B(\phi) = \begin{pmatrix} 
+\cos\phi & i\sin\phi & 0 & 0 \\
+i\sin\phi & \cos\phi & 0 & 0 \\
+0 & 0 & \cos\phi & i\sin\phi \\
+0 & 0 & i\sin\phi & \cos\phi 
+\end{pmatrix}
+\end{equation}
+\begin{itemize}
+\item \textbf{Geometric Probe:} Since this coin creates no entanglement between $x$ and $y$ directions in the bulk, it is the ideal choice for isolating the "geometric chaos" generated purely by the semicircular boundaries of the stadium.
+\item \textbf{Chirality:} The parameter $\phi$ controls the chirality or phase accumulation, useful for studying time-reversal symmetry breaking effects.
+\end{itemize}
+
+\subsubsection{The Generalized Hadamard Family ($H_4$)}
+
+A parameterization of the $4\times 4$ Hadamard matrix that maintains unitarity and symmetry, often used to study interference effects.
+\begin{equation}
+C_H(\xi) = \frac{1}{\sqrt{2}} \begin{pmatrix} 
+R(\xi) & R(\xi) \\
+R(\xi) & -R(\xi) 
+\end{pmatrix}, \quad \text{where } R(\xi) = \begin{pmatrix} \cos\xi & \sin\xi \\ \sin\xi & -\cos\xi \end{pmatrix}
+\end{equation}
+\begin{itemize}
+\item \textbf{Interference Contrast:} This coin maximizes quantum interference. In chaotic systems, it is useful for analyzing the transition from constructive interference (localization) to uniform distribution (ergodicity) as the stadium deformation increases.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.49\textwidth]{./figs/grid_bunimovich.pdf}
+\includegraphics[width=0.49\textwidth]{./figs/coin4D_bunimovich_pp.pdf}
+
+%  \includegraphics[width=0.49\textwidth]{./figs/dos_coin4D_bunimovich_pp.pdf}
+\includegraphics[width=0.49\textwidth]{./figs/ratios_k1_coin4D_bunimovich_full.pdf}
+\includegraphics[width=0.49\textwidth]{./figs/ratios_k2_coin4D_bunimovich_full.pdf}
+\includegraphics[width=0.49\textwidth]{./figs/ratios_k3_coin4D_bunimovich_full.pdf}
+v\includegraphics[width=0.49\textwidth]{./figs/ratios_k4_coin4D_bunimovich_full.pdf}
+\caption{Bunimovich stadium. \janote{Symmetry in the DOS}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{./figs/scar.pdf}
+\caption{Eigenvector that appears to be scarred.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.49\textwidth]{./figs/spacings_coin4D_bunimovich_mm.pdf}
+\caption{Distribution of level spacings in the completely odd ($--$) parity sector.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.49\textwidth]{./figs/dos_coin4D_bunimovich_full.pdf}
+\includegraphics[width=0.49\textwidth]{./figs/dos_filtered_coin4D_bunimovich_full.pdf}
+\caption{DOS for the DTQW with 4D coin in the Bunimuvich stadium (complete Hilbert space) before (left) and after (right) removing all eigenphases that are either $-\pi$, $0$, or $\pi$.}
+\end{figure}
