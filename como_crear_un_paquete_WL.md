@@ -75,7 +75,7 @@ El mensaje de uso debe empezar siempre con el nombre de la función y sus argume
 
 ## 5. Instalación del paquete para cargar con ```Needs["MiPaquete`"]``` desde cualquier notebook
 
-Esto es algo que sólo a realizar sólo cuando se nueva un nuevo paquete por primera vez, no cada vez que se realice una modificación de algún paquete existente.
+Sólo deberás hacer esto cuando crees un nuevo paquete.
 
 1. **Encuentra la ruta donde Wolfram guarde los paquetes en tu máquina:** Ejecuta `FileNameJoin[{$UserBaseDirectory, "Applications"}]` en Mathematica.
 2. Guarda ahí tu archivo `.wl` del paquete.
